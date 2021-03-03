@@ -10,4 +10,7 @@
       the License.
       -->
     <string name="app_name">AndroidDevChallenge</string>
+
+    <string name="back">Back</string>
+    <string name="animals">Pawper Finder</string>
 </resources>

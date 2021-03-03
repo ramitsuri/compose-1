@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/animalsFragment">
+
+    <fragment
+        android:id="@+id/animalsFragment"
+        android:name="com.example.androiddevchallenge.ui.fragments.AnimalsFragment"
+        android:label="animals_fragment">
+        <action
+            android:id="@+id/action_animalsFragment_to_animalDetailsFragment"
+            app:destination="@id/animalDetailsFragment">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/animalDetailsFragment"
+        android:name="com.example.androiddevchallenge.ui.fragments.AnimalDetailsFragment"
+        android:label="animal_details_fragment">
+    </fragment>
+</navigation>
