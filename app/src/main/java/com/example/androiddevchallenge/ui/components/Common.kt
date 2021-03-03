@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.androiddevchallenge.ui.components
 
 import androidx.compose.animation.core.Animatable
@@ -9,7 +24,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -87,11 +110,11 @@ class PagerState(
     }
 
     override fun toString(): String = "PagerState{minPage=$minPage, maxPage=$maxPage, " +
-            "currentPage=$currentPage, currentPageOffset=$currentPageOffset}"
+        "currentPage=$currentPage, currentPageOffset=$currentPageOffset}"
 }
 
 @Immutable
-private data class PageData(val page: Int): ParentDataModifier {
+private data class PageData(val page: Int) : ParentDataModifier {
     override fun Density.modifyParentData(parentData: Any?): Any = this@PageData
 }
 
@@ -105,7 +128,7 @@ fun Pager(
     offscreenLimit: Int = 2,
     pageContent: @Composable PagerScope.() -> Unit
 ) {
-    var pageSize by remember {mutableStateOf(0)}
+    var pageSize by remember { mutableStateOf(0) }
     val coroutineScope = rememberCoroutineScope()
     Layout(
         content = {
@@ -127,14 +150,14 @@ fun Pager(
             onDragStarted = {
                 state.selectionState = PagerState.SelectionState.Undecided
             },
-            onDragStopped = {velocity ->
+            onDragStopped = { velocity ->
                 coroutineScope.launch {
                     // Velocity is in pixels per second, but we deal in percentage offsets, so we
                     // need to scale the velocity to match
                     state.fling(velocity / pageSize)
                 }
             },
-            state = rememberDraggableState {dy ->
+            state = rememberDraggableState { dy ->
                 coroutineScope.launch {
                     with(state) {
                         val pos = pageSize * currentPageOffset
@@ -146,7 +169,7 @@ fun Pager(
                 }
             },
         )
-    ) {measurables, constraints ->
+    ) { measurables, constraints ->
         layout(constraints.maxWidth, constraints.maxHeight) {
             val currentPage = state.currentPage
             val offset = state.currentPageOffset
@@ -156,7 +179,7 @@ fun Pager(
                 .map {
                     it.measure(childConstraints) to it.page
                 }
-                .forEach {(placeable, page) ->
+                .forEach { (placeable, page) ->
                     // TODO: current this centers each page. We should investigate reading
                     //  gravity modifiers on the child, or maybe as a param to Pager.
                     val xCenterOffset = (constraints.maxWidth - placeable.width) / 2
@@ -220,5 +243,3 @@ fun Chip(
         )
     }
 }
-
-

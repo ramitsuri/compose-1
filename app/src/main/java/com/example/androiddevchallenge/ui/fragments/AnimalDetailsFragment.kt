@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.androiddevchallenge.ui.fragments
 
 import android.content.Intent
@@ -29,9 +44,9 @@ import com.example.androiddevchallenge.viewmodel.AnimaDetailsViewModelFactory
 import com.example.androiddevchallenge.viewmodel.AnimalDetailsViewModel
 import kotlinx.coroutines.launch
 
-class AnimalDetailsFragment: Fragment() {
+class AnimalDetailsFragment : Fragment() {
 
-    private val viewModel: AnimalDetailsViewModel by viewModels {AnimaDetailsViewModelFactory()}
+    private val viewModel: AnimalDetailsViewModel by viewModels { AnimaDetailsViewModelFactory() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +58,7 @@ class AnimalDetailsFragment: Fragment() {
             // In order for savedState to work, the same ID needs to be used for all instances.
             id = R.id.animalDetailsFragment
             lifecycleScope.launch {
-                arguments?.getInt(BUNDLE_KEY_ID)?.let {animalId ->
+                arguments?.getInt(BUNDLE_KEY_ID)?.let { animalId ->
                     viewModel.refresh(animalId)
                 }
             }
@@ -55,14 +70,14 @@ class AnimalDetailsFragment: Fragment() {
             setContent {
                 MyTheme {
                     Surface(color = MaterialTheme.colors.background) {
-                        viewModel.animal.observeAsState().value?.let {animal ->
-                            val pagerState = remember {PagerState()}
+                        viewModel.animal.observeAsState().value?.let { animal ->
+                            val pagerState = remember { PagerState() }
                             Spacer(Modifier.height(16.dp))
 
                             AnimalDetails(
                                 animal = animal,
                                 showBack = true,
-                                {activity?.onBackPressedDispatcher?.onBackPressed()},
+                                { activity?.onBackPressedDispatcher?.onBackPressed() },
                                 pagerState = pagerState,
                                 modifier = Modifier
                                     .padding(start = Keyline1, top = 16.dp, end = Keyline1)
@@ -76,7 +91,6 @@ class AnimalDetailsFragment: Fragment() {
 
                             Spacer(Modifier.height(16.dp))
                         }
-
                     }
                 }
             }
