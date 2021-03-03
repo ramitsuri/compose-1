@@ -11,8 +11,11 @@ A pet finder app written entirely in Compose. Also uses
 
 
 ## :bulb: Motivation and Context
-This app has a repository class that can fetch real data from Petfinder API but since the token
-provided with the free account has a very short duration, it's not fully wired up.
+Jetpack Compose changes how you think about Android UI entirely and I've started to become
+comfortable with it only while figuring out things to complete this challenge.
+
+Side note: this app has a repository class that can fetch real data from Petfinder API but since
+the token provided with the free account has a very short duration, it's not fully wired up.
 
 
 ## :camera_flash: Screenshots

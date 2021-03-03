@@ -8,7 +8,6 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import java.time.Instant
 
 interface NetworkApi {
     @GET("animals")
@@ -17,7 +16,7 @@ interface NetworkApi {
     companion object {
         private const val BASE_URL = "https://api.petfinder.com/v2/animals"
 
-        /*fun create(dateTimeHelper: DateTimeHelper): NetworkApi {
+        fun create(): NetworkApi {
             val logger =
                 HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
 
@@ -26,10 +25,6 @@ interface NetworkApi {
                 .build()
 
             val gson = GsonBuilder()
-                .registerTypeAdapter(
-                    Instant::class.java,
-                    InstantAdapter(dateTimeHelper)
-                )
                 .create()
 
             return Retrofit.Builder()
@@ -38,6 +33,6 @@ interface NetworkApi {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
                 .create(NetworkApi::class.java)
-        }*/
+        }
     }
 }
